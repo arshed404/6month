@@ -272,29 +272,40 @@ function showSlide() {
 
   const slide = slides[currentSlide];
 
-  // fade out
+  // 🔥 STEP 1: fade OUT current
   img.style.opacity = 0;
   text.style.opacity = 0;
   img.classList.remove("show");
 
+  // 🔥 STEP 2: wait for fade-out (no flash)
   setTimeout(() => {
+
+    // reset animation cleanly
+    img.style.animation = "none";
+    img.offsetHeight; // force reflow (important)
+    img.style.animation = null;
+
+    // set next image
     img.src = slide.img;
 
+    // start zoom again
     img.style.animation = "zoomSlow 4s ease-in-out";
-    img.classList.add("show"); // ✨ dreamy clear
 
+    // fade IN
+    img.classList.add("show");
     img.style.opacity = 1;
 
     text.innerText = slide.text;
     text.style.opacity = 1;
-  }, 600);
 
+  }, 700); // wait for fade out
+
+  // 🔥 STEP 3: next slide timing
   setTimeout(() => {
     currentSlide++;
     showSlide();
-  }, 4500);
+  }, 5000); // total duration
 }
-
 function startIntro() {
   const intro = document.getElementById('intro');
   intro.innerHTML = "";
@@ -439,13 +450,13 @@ And then we grew—without even realising it. From random late-night talks to ca
 <button class="btn" onclick="showLetter()">This is where my heart is 💌</button>
 
 <div class="letter" id="letter">
-<p>i don’t think you realise what you’ve become to me… not just someone i love, but someone my days revolve around without me even noticing.</p>
+<p>I don’t think you realise what you’ve become to me… not just someone i love, but someone my days revolve around without me even noticing.</p>
 <br>
-<p>it’s in the small things… the way i wait for you, the way i think of you randomly, the way everything feels slightly better when you’re there.</p>
+<p>It’s in the small things… waiting for your text, thinking of you while going to uni, randomly remembering your face in the middle of anything I do, and how even the most normal places feel better when you’re part of it. From metro rides that suddenly meant more because you were there for a few stations… to café days, shopping days, long calls, even those little fights that still somehow end with us staying.</p>
 <br>
-<p>6 months isn’t just time… it’s memories, moments, feelings that stayed.</p>
+<p>6 months isn’t just time… it’s memories that didn’t feel planned but still stayed. Moments that slowly turned into something I didn’t expect but now can’t imagine losing.</p>
 <br>
-<p style="color:white">and if this is what 6 months feels like… i want more of you.</p>
+<p style="color:white">And if this is what 6 months feels like… I don’t want less of you. I want more of you… in everyday life, in future plans, in everything that’s still waiting for us.</p>
 </div>
 
 <div class="ending">
