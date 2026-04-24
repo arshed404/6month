@@ -105,6 +105,12 @@ body{background:linear-gradient(to bottom,#000,#111,#000);color:white;overflow-x
 80%{opacity:1}
 100%{transform:translateY(-110vh);opacity:0}
 }
+animation: pulse 2s infinite;
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px rgba(255,105,180,0.4); }
+  50% { box-shadow: 0 0 30px rgba(255,105,180,0.8); }
+  100% { box-shadow: 0 0 10px rgba(255,105,180,0.4); }
+}
 </style>
 </head>
 <body>
@@ -138,21 +144,17 @@ setTimeout(()=>el.remove(),20000);
 // slower spawn rate
 setInterval(createFloating,4000);
 
-function startExperience(){
-  const letter = document.getElementById('letter');
-  letter.style.display = 'block';
 
-  // smooth fade in
-  letter.style.opacity = 0;
-  setTimeout(() => {
-    letter.style.transition = 'opacity 1s ease';
-    letter.style.opacity = 1;
-  }, 50);
+function startSite() {
+  // hide start screen
+  document.getElementById("startScreen").style.display = "none";
 
-  // play music
+  // show main content
+  document.getElementById("mainContent").style.display = "block";
+
+  // play music with fade
   const music = document.getElementById("bgMusic");
   music.volume = 0;
-
   music.play();
 
   let vol = 0;
@@ -165,12 +167,13 @@ function startExperience(){
     }
   }, 200);
 }
+  
 </script>
 
 <audio id="bgMusic" loop>
   <source src="Dude Movie - Kannukulla Song Bgm.mp3" type="audio/mpeg">
 </audio>
-
+<div id="mainContent" style="display:none;">
 <div class="container">
 
 <div class="intro" id="intro"></div>
@@ -226,7 +229,7 @@ And then we grew—without even realising it. From random late-night talks to ca
 </div>
 </div>
 
-<button class="btn" onclick="startExperience()">open this if it’s still us 💌</button>
+<button class="btn" onclick="showLetter()">open this if it’s still us 💌</button>
 
 <div class="letter" id="letter">
 <p>i don’t think you realise what you’ve become to me… not just someone i love, but someone my days revolve around without me even noticing.</p>
@@ -242,7 +245,30 @@ And then we grew—without even realising it. From random late-night talks to ca
 <p>Always and Forever.</p>
 <p style="color:#ff4d6d">With Love, Achu ❤️</p>
 </div>
-
+</div>
+</div>
+<div id="startScreen" style="
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:black;
+  position:fixed;
+  inset:0;
+  z-index:999;
+">
+  <button onclick="startSite()" style="
+    padding:14px 28px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    background:#ff4d6d;
+    color:white;
+    cursor:pointer;
+    box-shadow:0 0 30px rgba(255,105,180,0.5);
+  ">
+    I love you romba 💌
+  </button>
 </div>
 
 <script>
