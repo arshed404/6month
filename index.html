@@ -116,19 +116,19 @@ animation: pulse 2s infinite;
   to { transform: scale(1.15); }
 }
 
+#slideImage {
+  filter: blur(10px);
+}
+
+#slideImage.show {
+  filter: blur(0);
+}
 
 </style>
 </head>
 <body>
 
 <script>
-
-const emojis=["❤️","💌","😘","🥰","😍","💖","💕","💞","💓","💘","🌹","🫶","✨"];
-const words=["Achu","Ammu","Swathy","Love","MyGirl","MyWorld","MyHome","MyLove","MySafeSpace","MyMotivation","MyBestest","MyMaggi","MyStunner","MyBlushAndSmile","My2025","MyFights","MyRocky","MyTiramisu","MyEid"];
-
-function createFloating(){
-const container=document.body;
-
 const slides = [
   {
     img: "IMG_9608.jpeg",
@@ -151,6 +151,14 @@ const slides = [
     text: "And now… it’s just you I imagine in every day."
   }
 ];
+  
+const emojis=["❤️","💌","😘","🥰","😍","💖","💕","💞","💓","💘","🌹","🫶","✨"];
+const words=["Achu","Ammu","Swathy","Love","MyGirl","MyWorld","MyHome","MyLove","MySafeSpace","MyMotivation","MyBestest","MyMaggi","MyStunner","MyBlushAndSmile","My2025","MyFights","MyRocky","MyTiramisu","MyEid"];
+
+function createFloating(){
+const container=document.body;
+
+
 // reduce density
 for(let i=0;i<15;i++){
 const isWord=Math.random()>0.5;
@@ -174,8 +182,18 @@ setInterval(createFloating,4000);
 
 
 function startSite() {
-  document.getElementById("startScreen").style.display = "none";
+  const start = document.getElementById("startScreen");
 
+  // fade out button screen
+  start.style.transition = "opacity 1s";
+  start.style.opacity = 0;
+
+  setTimeout(() => {
+    start.style.display = "none";
+    startSlideshow(); // go cinematic
+  }, 1000);
+
+  // start music
   const music = document.getElementById("bgMusic");
   music.volume = 0;
   music.play();
@@ -189,15 +207,13 @@ function startSite() {
       clearInterval(fade);
     }
   }, 200);
-
-  startSlideshow(); // 🔥 NEW FLOW
 }
 
 let currentSlide = 0;
 
 function startSlideshow() {
-  document.getElementById("slideshow").style.display = "flex";
-
+  const slideBox = document.getElementById("slideshow");
+  slideBox.style.display = "flex";
   showSlide();
 }
 
@@ -206,7 +222,7 @@ function showSlide() {
   const text = document.getElementById("slideText");
 
   if (currentSlide >= slides.length) {
-    // end slideshow → go to main site
+    // move to main content
     document.getElementById("slideshow").style.display = "none";
     document.getElementById("mainContent").style.display = "block";
     startIntro();
@@ -215,25 +231,34 @@ function showSlide() {
 
   const slide = slides[currentSlide];
 
+  // fade out
   img.style.opacity = 0;
   text.style.opacity = 0;
 
   setTimeout(() => {
     img.src = slide.img;
 
-    // Ken Burns zoom effect
+    // 🔥 Ken Burns zoom
     img.style.animation = "zoomSlow 4s ease-in-out";
 
     img.style.opacity = 1;
+
     text.innerText = slide.text;
     text.style.opacity = 1;
-  }, 500);
+  }, 800);
 
   setTimeout(() => {
     currentSlide++;
     showSlide();
-  }, 4000);
+  }, 4500);
 }
+
+img.classList.remove("show");
+setTimeout(() => {
+  img.src = slide.img;
+  img.classList.add("show");
+}, 200);
+  
 const lines = [
   "This wasn’t planned.",
   "This wasn’t supposed to mean this much.",
@@ -277,6 +302,35 @@ function showLetter() {
 <audio id="bgMusic" loop>
   <source src="Dude Movie - Kannukulla Song Bgm.mp3" type="audio/mpeg">
 </audio>
+
+<div id="slideshow" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  background:black;
+  z-index:998;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+">
+
+  <img id="slideImage" style="
+    max-width:90%;
+    max-height:70%;
+    border-radius:12px;
+    opacity:0;
+    transition:opacity 1s ease;
+  ">
+
+  <p id="slideText" style="
+    margin-top:20px;
+    color:white;
+    font-size:18px;
+    opacity:0;
+    transition:opacity 1s ease;
+  "></p>
+
+</div>
 <div id="mainContent" style="display:none;">
 <div class="container">
 
