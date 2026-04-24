@@ -95,7 +95,13 @@ body{background:linear-gradient(to bottom,#000,#111,#000);color:white;overflow-x
 
 .ending{text-align:center;margin:60px 0;color:#777}
 
-.float{position:fixed;bottom:-50px;animation:floatUp linear infinite;pointer-events:none}
+.float {
+  position: fixed;
+  bottom: -50px;
+  animation: floatUp linear infinite;
+  pointer-events: none;
+  z-index: 1; /* lower than letter */
+}
 .word{font-size:14px;color:rgba(255,182,193,0.8)}
 .emoji{font-size:24px}
 
@@ -145,6 +151,21 @@ animation: pulse 2s infinite;
 
 }
 
+.letter {
+  position: relative;
+  z-index: 5; /* 🔥 bring above floating emojis */
+}
+
+@media (max-width: 600px) {
+  .letter {
+    font-size: 18px;
+    padding: 0 10px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.9); /* stronger contrast */
+  }
+}
+
+
+
 </style>
 </head>
 <body>
@@ -174,14 +195,14 @@ const slides = [
 ];
   
 const emojis=["❤️","💌","😘","🥰","😍","💖","💕","💞","💓","💘","🌹","🫶","✨"];
-const words=["Achu","Ammu","Swathy","Love","MyGirl","MyWorld","MyHome","MyLove","MySafeSpace","MyMotivation","MyBestest","MyMaggi","MyStunner","MyBlushAndSmile","My2025","MyFights","MyRocky","MyTiramisu","MyEid"];
+const words=["Achu","Ammu","Swathy","Love","50you","51me","MyGirl","MyWorld","MyHome","MyLove","MySafeSpace","MyMotivation","MyBestest","MyMaggi","MyStunner","MyBlushAndSmile","My2025","MyFights","MyRocky","MyTiramisu","MyEid","MyPack","MyNonna","MyBlr"];
 
 function createFloating(){
 const container=document.body;
 
 
 // reduce density
-for(let i=0;i<15;i++){
+for(let i=0;i<10;i++){
 const isWord=Math.random()>0.5;
 const el=document.createElement('div');
 el.className='float '+(isWord?'word':'emoji');
@@ -199,7 +220,7 @@ setTimeout(()=>el.remove(),20000);
 }
 
 // slower spawn rate
-setInterval(createFloating,4000);
+setInterval(createFloating,5000);
 
 
 function startSite() {
