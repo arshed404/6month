@@ -307,25 +307,38 @@ function showLetter() {
   z-index:998;
   justify-content:center;
   align-items:center;
-  flex-direction:column;
 ">
 
-  <img id="slideImage" style="
-    max-width:90%;
-    max-height:70%;
-    border-radius:12px;
-    opacity:0;
-    transition:opacity 1s ease;
-  ">
+  <div style="position:relative; width:100%; height:100%; display:flex; justify-content:center; align-items:center;">
 
-  <p id="slideText" style="
-    margin-top:20px;
-    color:white;
-    font-size:18px;
-    opacity:0;
-    transition:opacity 1s ease;
-  "></p>
+    <img id="slideImage" style="
+      max-width:90%;
+      max-height:80%;
+      border-radius:12px;
+      opacity:0;
+      transition:opacity 1s ease;
+    ">
 
+    <p id="slideText" style="
+      position:absolute;
+      bottom:10%;
+      left:50%;
+      transform:translateX(-50%);
+      color:white;
+      font-size:20px;
+      text-align:center;
+      max-width:80%;
+      opacity:0;
+      transition:opacity 1s ease;
+
+      /* ✨ readability */
+      text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+      background: rgba(0,0,0,0.3);
+      padding:10px 16px;
+      border-radius:10px;
+    "></p>
+
+  </div>
 </div>
 <div id="mainContent" style="display:none;">
 <div class="container">
