@@ -126,6 +126,25 @@ animation: pulse 2s infinite;
   transform: scale(1.12);
 }
 
+@media (max-width: 600px) {
+
+  #slideText {
+    font-size: 14px;          /* smaller text */
+    max-width: 90%;           /* allow better wrapping */
+    bottom: 6%;               /* push it lower */
+    padding: 6px 10px;        /* tighter box */
+    line-height: 1.4;
+
+    background: rgba(0,0,0,0.2); /* lighter so image shows */
+  }
+
+  #slideImage {
+    max-width: 95%;
+    max-height: 75%;
+  }
+
+}
+
 </style>
 </head>
 <body>
