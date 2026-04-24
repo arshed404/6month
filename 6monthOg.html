@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>6 Months of Us ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Space Grotesk',sans-serif}
+body{background:linear-gradient(to bottom,#000,#111,#000);color:white;overflow-x:hidden}
+
+.container{position:relative;z-index:2;padding:20px}
+
+.intro{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:12px}
+.intro h1{opacity:0;transform:translateY(20px);filter:blur(10px);transition:all .8s}
+.intro h1.show{opacity:1;transform:translateY(0);filter:blur(0)}
+.intro h1.last{color:#ff4d6d;transform:scale(1.1)}
+
+.title{text-align:center;margin:40px 0}
+.title h1{font-size:2.5rem}
+.title p{color:#aaa}
+
+.timeline{max-width:800px;margin:auto}
+.card{position:relative;margin:60px 0;display:flex;justify-content:center}
+.polaroid{background:white;color:black;padding:10px;border-radius:12px;box-shadow:0 20px 40px rgba(255,105,180,.2);transform:rotate(-5deg);transition:.4s}
+.polaroid:hover{transform:rotate(0deg) scale(1.05)}
+.polaroid img{width:260px;height:200px;object-fit:cover;border-radius:8px}
+.polaroid h2{text-align:center;color:#ff4d6d;font-size:14px;margin-top:8px}
+.polaroid p{text-align:center;font-size:12px;color:#444}
+
+.btn{display:block;margin:40px auto;padding:10px 20px;border:none;border-radius:20px;background:#ff4d6d;color:white;cursor:pointer}
+.letter{display:none;max-width:600px;margin:auto;color:#ccc;line-height:1.6}
+
+.ending{text-align:center;margin:60px 0;color:#777}
+
+.float{position:fixed;bottom:-50px;animation:floatUp linear infinite;pointer-events:none}
+.word{font-size:14px;color:rgba(255,182,193,0.8)}
+.emoji{font-size:24px}
+
+@keyframes floatUp{
+0%{transform:translateY(0);opacity:0}
+20%{opacity:1}
+80%{opacity:1}
+100%{transform:translateY(-110vh);opacity:0}
+}
+</style>
+</head>
+<body>
+
+<script>
+const emojis=["❤️","💌","😘","🥰","😍","💖","💕","💞","💓","💘","🌹","🫶","✨"];
+const words=["Achu","Ammu","Swathy","Love","MyGirl","MyWorld","MyHome","MyLove","MySafeSpace","MyMotivation","MyBestest","MyMaggi","MyStunner","MyBlushAndSmile","My2025","MyFights","MyRocky","MyTiramisu","MyEid"];
+
+function createFloating(){
+const container=document.body;
+
+// reduce density
+for(let i=0;i<15;i++){
+const isWord=Math.random()>0.5;
+const el=document.createElement('div');
+el.className='float '+(isWord?'word':'emoji');
+el.innerText=isWord?
+words[Math.floor(Math.random()*words.length)]:
+emojis[Math.floor(Math.random()*emojis.length)];
+
+el.style.left=Math.random()*100+'vw';
+el.style.animationDuration=(12+Math.random()*8)+'s';
+el.style.opacity=isWord?0.4:0.6; // softer
+
+container.appendChild(el);
+setTimeout(()=>el.remove(),20000);
+}
+}
+
+// slower spawn rate
+setInterval(createFloating,4000);
+</script>
+
+<div class="container">
+
+<div class="intro" id="intro"></div>
+
+<div class="title">
+<h1>6 Months of Us ❤️</h1>
+<p>not perfect, not easy… but somehow, ours.</p>
+</div>
+
+<div class="timeline">
+
+<div class="card">
+<div class="polaroid">
+<img src="images/beginning.jpg">
+<h2>The Beginning</h2>
+<p>Somehow, out of all the people in the world… it was you.</p>
+</div>
+</div>
+
+<div class="card">
+<div class="polaroid">
+<img src="images/firstcall.jpg">
+<h2>The First Call</h2>
+<p>An unknown number… that turned into the most known feeling.</p>
+</div>
+</div>
+
+<div class="card">
+<div class="polaroid">
+<img src="images/firstmeet.jpg">
+<h2>Seeing You</h2>
+<p>And suddenly, reality felt better than imagination.</p>
+</div>
+</div>
+
+</div>
+
+<button class="btn" onclick="showLetter()">open this if it’s still us 💌</button>
+
+<div class="letter" id="letter">
+<p>i don’t think you realise what you’ve become to me… not just someone i love, but someone my days revolve around without me even noticing.</p>
+<br>
+<p>it’s in the small things… the way i wait for you, the way i think of you randomly, the way everything feels slightly better when you’re there.</p>
+<br>
+<p>6 months isn’t just time… it’s memories, moments, feelings that stayed.</p>
+<br>
+<p style="color:white">and if this is what 6 months feels like… i want more of you.</p>
+</div>
+
+<div class="ending">
+<p>scrolling ends here… but us doesn’t.</p>
+<p style="color:#ff4d6d">— Swathy ❤️</p>
+</div>
+
+</div>
+
+<script>
+const lines=[
+"this wasn’t planned.",
+"this wasn’t supposed to mean this much.",
+"but then… there was you.",
+"Swathy."
+];
+
+const intro=document.getElementById('intro');
+lines.forEach((line,i)=>{
+const h=document.createElement('h1');
+h.innerText=line;
+if(i===lines.length-1)h.classList.add('last');
+intro.appendChild(h);
+setTimeout(()=>h.classList.add('show'),i*800);
+});
+
+function showLetter(){
+document.getElementById('letter').style.display='block';
+}
+</script>
+
+</body>
+</html>
+
