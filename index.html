@@ -111,6 +111,8 @@ animation: pulse 2s infinite;
   50% { box-shadow: 0 0 30px rgba(255,105,180,0.8); }
   100% { box-shadow: 0 0 10px rgba(255,105,180,0.4); }
 }
+
+
 </style>
 </head>
 <body>
@@ -146,13 +148,11 @@ setInterval(createFloating,4000);
 
 
 function startSite() {
-  // hide start screen
   document.getElementById("startScreen").style.display = "none";
-
-  // show main content
   document.getElementById("mainContent").style.display = "block";
 
-  // play music with fade
+  startIntro(); // 👈 THIS IS THE MISSING PIECE
+
   const music = document.getElementById("bgMusic");
   music.volume = 0;
   music.play();
@@ -167,7 +167,32 @@ function startSite() {
     }
   }, 200);
 }
-  
+const lines = [
+  "This wasn’t planned.",
+  "This wasn’t supposed to mean this much.",
+  "but then… there was You.",
+  "Swathy."
+];
+
+function startIntro() {
+  const intro = document.getElementById('intro');
+  intro.innerHTML = ""; // reset
+
+  lines.forEach((line, i) => {
+    const h = document.createElement('h1');
+    h.innerText = line;
+
+    if (i === lines.length - 1) {
+      h.classList.add('last');
+    }
+
+    intro.appendChild(h);
+
+    setTimeout(() => {
+      h.classList.add('show');
+    }, i * 800);
+  });
+}
 </script>
 
 <audio id="bgMusic" loop>
