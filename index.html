@@ -111,6 +111,10 @@ animation: pulse 2s infinite;
   50% { box-shadow: 0 0 30px rgba(255,105,180,0.8); }
   100% { box-shadow: 0 0 10px rgba(255,105,180,0.4); }
 }
+@keyframes zoomSlow {
+  from { transform: scale(1.05); }
+  to { transform: scale(1.15); }
+}
 
 
 </style>
@@ -125,6 +129,28 @@ const words=["Achu","Ammu","Swathy","Love","MyGirl","MyWorld","MyHome","MyLove",
 function createFloating(){
 const container=document.body;
 
+const slides = [
+  {
+    img: "IMG_9608.jpeg",
+    text: "The first message… when everything began."
+  },
+  {
+    img: "b1534fc6-e592-45f2-a8ad-aad6bdd5f304.jpeg",
+    text: "That moment… felt like something was starting."
+  },
+  {
+    img: "IMG_9662.jpeg",
+    text: "From texts → reality… and suddenly, you were real."
+  },
+  {
+    img: "FD4C817A-E6C4-4F95-8C7C-2D0FB5F7DA67.jpeg",
+    text: "We didn’t notice… but we were growing."
+  },
+  {
+    img: "IMG_9329.jpeg",
+    text: "And now… it’s just you I imagine in every day."
+  }
+];
 // reduce density
 for(let i=0;i<15;i++){
 const isWord=Math.random()>0.5;
@@ -149,9 +175,6 @@ setInterval(createFloating,4000);
 
 function startSite() {
   document.getElementById("startScreen").style.display = "none";
-  document.getElementById("mainContent").style.display = "block";
-
-  startIntro(); // 👈 THIS IS THE MISSING PIECE
 
   const music = document.getElementById("bgMusic");
   music.volume = 0;
@@ -166,6 +189,50 @@ function startSite() {
       clearInterval(fade);
     }
   }, 200);
+
+  startSlideshow(); // 🔥 NEW FLOW
+}
+
+let currentSlide = 0;
+
+function startSlideshow() {
+  document.getElementById("slideshow").style.display = "flex";
+
+  showSlide();
+}
+
+function showSlide() {
+  const img = document.getElementById("slideImage");
+  const text = document.getElementById("slideText");
+
+  if (currentSlide >= slides.length) {
+    // end slideshow → go to main site
+    document.getElementById("slideshow").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+    startIntro();
+    return;
+  }
+
+  const slide = slides[currentSlide];
+
+  img.style.opacity = 0;
+  text.style.opacity = 0;
+
+  setTimeout(() => {
+    img.src = slide.img;
+
+    // Ken Burns zoom effect
+    img.style.animation = "zoomSlow 4s ease-in-out";
+
+    img.style.opacity = 1;
+    text.innerText = slide.text;
+    text.style.opacity = 1;
+  }, 500);
+
+  setTimeout(() => {
+    currentSlide++;
+    showSlide();
+  }, 4000);
 }
 const lines = [
   "This wasn’t planned.",
@@ -192,6 +259,18 @@ function startIntro() {
       h.classList.add('show');
     }, i * 800);
   });
+}
+
+function showLetter() {
+  const letter = document.getElementById('letter');
+
+  letter.style.display = 'block';
+  letter.style.opacity = 0;
+
+  setTimeout(() => {
+    letter.style.transition = 'opacity 1s ease';
+    letter.style.opacity = 1;
+  }, 50);
 }
 </script>
 
@@ -254,7 +333,7 @@ And then we grew—without even realising it. From random late-night talks to ca
 </div>
 </div>
 
-<button class="btn" onclick="showLetter()">open this if it’s still us 💌</button>
+<button class="btn" onclick="showLetter()">This is where my heart is 💌</button>
 
 <div class="letter" id="letter">
 <p>i don’t think you realise what you’ve become to me… not just someone i love, but someone my days revolve around without me even noticing.</p>
