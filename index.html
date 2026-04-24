@@ -115,13 +115,15 @@ animation: pulse 2s infinite;
   from { transform: scale(1.05); }
   to { transform: scale(1.15); }
 }
-
 #slideImage {
-  filter: blur(10px);
+  filter: blur(4px) brightness(0.85);
+  transform: scale(1.05);
+  transition: all 1.5s ease;
 }
 
 #slideImage.show {
-  filter: blur(0);
+  filter: blur(0px) brightness(1);
+  transform: scale(1.12);
 }
 
 </style>
@@ -258,6 +260,21 @@ setTimeout(() => {
   img.src = slide.img;
   img.classList.add("show");
 }, 200);
+
+img.classList.remove("show");
+
+setTimeout(() => {
+  img.src = slide.img;
+
+  img.style.animation = "zoomSlow 4s ease-in-out";
+
+  img.classList.add("show"); // smooth clear
+
+  img.style.opacity = 1;
+
+  text.innerText = slide.text;
+  text.style.opacity = 1;
+}, 500);
   
 const lines = [
   "This wasn’t planned.",
@@ -268,21 +285,13 @@ const lines = [
 
 function startIntro() {
   const intro = document.getElementById('intro');
-  intro.innerHTML = ""; // reset
-
-  lines.forEach((line, i) => {
-    const h = document.createElement('h1');
-    h.innerText = line;
-
-    if (i === lines.length - 1) {
-      h.classList.add('last');
-    }
+  intro.innerHTML = ""; // reset properly
 
     intro.appendChild(h);
 
     setTimeout(() => {
       h.classList.add('show');
-    }, i * 800);
+    }, i * 1000);
   });
 }
 
