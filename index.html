@@ -110,6 +110,7 @@ body{background:linear-gradient(to bottom,#000,#111,#000);color:white;overflow-x
 <body>
 
 <script>
+
 const emojis=["❤️","💌","😘","🥰","😍","💖","💕","💞","💓","💘","🌹","🫶","✨"];
 const words=["Achu","Ammu","Swathy","Love","MyGirl","MyWorld","MyHome","MyLove","MySafeSpace","MyMotivation","MyBestest","MyMaggi","MyStunner","MyBlushAndSmile","My2025","MyFights","MyRocky","MyTiramisu","MyEid"];
 
@@ -136,7 +137,39 @@ setTimeout(()=>el.remove(),20000);
 
 // slower spawn rate
 setInterval(createFloating,4000);
+
+function startExperience(){
+  const letter = document.getElementById('letter');
+  letter.style.display = 'block';
+
+  // smooth fade in
+  letter.style.opacity = 0;
+  setTimeout(() => {
+    letter.style.transition = 'opacity 1s ease';
+    letter.style.opacity = 1;
+  }, 50);
+
+  // play music
+  const music = document.getElementById("bgMusic");
+  music.volume = 0;
+
+  music.play();
+
+  let vol = 0;
+  const fade = setInterval(() => {
+    if (vol < 0.4) {
+      vol += 0.02;
+      music.volume = vol;
+    } else {
+      clearInterval(fade);
+    }
+  }, 200);
+}
 </script>
+
+<audio id="bgMusic" loop>
+  <source src="Dude Movie - Kannukulla Song Bgm.mp3" type="audio/mpeg">
+</audio>
 
 <div class="container">
 
@@ -193,7 +226,7 @@ And then we grew—without even realising it. From random late-night talks to ca
 </div>
 </div>
 
-<button class="btn" onclick="showLetter()">open this if it’s still us 💌</button>
+<button class="btn" onclick="startExperience()">open this if it’s still us 💌</button>
 
 <div class="letter" id="letter">
 <p>i don’t think you realise what you’ve become to me… not just someone i love, but someone my days revolve around without me even noticing.</p>
