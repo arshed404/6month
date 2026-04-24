@@ -22,21 +22,22 @@ body{background:linear-gradient(to bottom,#000,#111,#000);color:white;overflow-x
 
 .timeline{max-width:800px;margin:auto}
 .card{position:relative;margin:60px 0;display:flex;justify-content:center}
-..polaroid {
+.polaroid {
   background: white;
-  color: black;
-  padding: 10px;
+  padding: 10px 10px 25px 10px; /* bigger bottom like real polaroid */
   border-radius: 12px;
-  box-shadow: 0 15px 30px rgba(255,105,180,0.2);
-  transform: rotate(-4deg);
-  transition: 0.3s;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
   
-  width: fit-content;        /* key */
-  max-width: 90vw;           /* mobile safe */
+  width: fit-content;
+  max-width: 90vw;
+
+  transform: rotate(-4deg);
+  transition: all 0.3s ease;
+  position: relative;
 }
 
 .polaroid:hover {
-  transform: rotate(0deg) scale(1.03);
+  transform: rotate(0deg) scale(1.05);
 }
 
 .polaroid img {
@@ -45,9 +46,37 @@ body{background:linear-gradient(to bottom,#000,#111,#000);color:white;overflow-x
   height: auto;
   border-radius: 8px;
 }
-.polaroid h2{text-align:center;color:#ff4d6d;font-size:14px;margin-top:8px}
-.polaroid p{text-align:center;font-size:12px;color:#444}
 
+/* caption (the text area like real polaroid) */
+.polaroid h2 {
+  font-size: 14px;
+  text-align: center;
+  margin-top: 8px;
+  color: #ff4d6d;
+}
+
+.polaroid p {
+  font-size: 12px;
+  text-align: center;
+  color: #444;
+}
+
+.polaroid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: white;
+  border-radius: 12px;
+  transform: rotate(6deg);
+  z-index: -1;
+  opacity: 0.6;
+}
+
+@media (max-width: 500px) {
+  .polaroid {
+    max-width: 80vw;
+  }
+}
 .btn{display:block;margin:40px auto;padding:10px 20px;border:none;border-radius:20px;background:#ff4d6d;color:white;cursor:pointer}
 .letter{display:none;max-width:600px;margin:auto;color:#ccc;line-height:1.6}
 
