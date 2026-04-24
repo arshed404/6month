@@ -224,7 +224,6 @@ function showSlide() {
   const text = document.getElementById("slideText");
 
   if (currentSlide >= slides.length) {
-    // move to main content
     document.getElementById("slideshow").style.display = "none";
     document.getElementById("mainContent").style.display = "block";
     startIntro();
@@ -236,18 +235,19 @@ function showSlide() {
   // fade out
   img.style.opacity = 0;
   text.style.opacity = 0;
+  img.classList.remove("show");
 
   setTimeout(() => {
     img.src = slide.img;
 
-    // 🔥 Ken Burns zoom
     img.style.animation = "zoomSlow 4s ease-in-out";
+    img.classList.add("show"); // ✨ dreamy clear
 
     img.style.opacity = 1;
 
     text.innerText = slide.text;
     text.style.opacity = 1;
-  }, 800);
+  }, 600);
 
   setTimeout(() => {
     currentSlide++;
@@ -255,37 +255,24 @@ function showSlide() {
   }, 4500);
 }
 
-img.classList.remove("show");
-setTimeout(() => {
-  img.src = slide.img;
-  img.classList.add("show");
-}, 200);
-
-img.classList.remove("show");
-
-setTimeout(() => {
-  img.src = slide.img;
-
-  img.style.animation = "zoomSlow 4s ease-in-out";
-
-  img.classList.add("show"); // smooth clear
-
-  img.style.opacity = 1;
-
-  text.innerText = slide.text;
-  text.style.opacity = 1;
-}, 500);
-  
-const lines = [
-  "This wasn’t planned.",
-  "This wasn’t supposed to mean this much.",
-  "but then… there was You.",
-  "Swathy."
-];
-
 function startIntro() {
   const intro = document.getElementById('intro');
-  intro.innerHTML = ""; // reset properly
+  intro.innerHTML = "";
+
+  const lines = [
+    "This wasn’t planned.",
+    "This wasn’t supposed to mean this much.",
+    "but then… there was You.",
+    "Swathy."
+  ];
+
+  lines.forEach((line, i) => {
+    const h = document.createElement('h1');
+    h.innerText = line;
+
+    if (i === lines.length - 1) {
+      h.classList.add('last');
+    }
 
     intro.appendChild(h);
 
@@ -422,7 +409,7 @@ And then we grew—without even realising it. From random late-night talks to ca
   background:black;
   position:fixed;
   inset:0;
-  z-index:999;
+  z-index:9999;
 ">
   <button onclick="startSite()" style="
     padding:14px 28px;
